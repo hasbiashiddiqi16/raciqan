@@ -1,6 +1,4 @@
-"use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 const LogoSvg = () => (
   <svg aria-hidden="true" width="42" height="42" viewBox="0 0 42 42" style={{ margin: "0 1px", flex: "none" }}>
@@ -12,12 +10,6 @@ const LogoSvg = () => (
 );
 
 export default function Header() {
-  const [user, setUser] = useState<any>(null);
-
-  useEffect(() => {
-    fetch("/api/auth/me").then(r => r.json()).then(d => setUser(d.user));
-  }, []);
-
   return (
     <header style={{ maxWidth: 1160, margin: "0 auto", padding: "20px 24px", boxSizing: "border-box", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
       <Link href="/" aria-label="RACIQAN, ke bagian atas beranda" style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "#12352B", fontFamily: "'Bricolage Grotesque', 'DM Sans', sans-serif", fontWeight: 800, fontSize: 28, letterSpacing: "0.02em" }}>
@@ -30,14 +22,6 @@ export default function Header() {
         <Link href="/#skor-rasa" style={{ fontWeight: 500, textDecoration: "none", padding: "10px 0", color: "#12352B" }}>Skor Rasa</Link>
         <Link href="/#komunitas" style={{ fontWeight: 500, textDecoration: "none", padding: "10px 0", color: "#12352B" }}>Komunitas</Link>
         <Link href="/bagikan" style={{ display: "inline-flex", alignItems: "center", minHeight: 44, padding: "0 20px", borderRadius: 999, background: "#12352B", color: "#FFFFFF", fontWeight: 700, textDecoration: "none" }}>Bagikan racikan</Link>
-        {user ? (
-          <button onClick={async () => { await fetch("/api/auth/logout", { method: "POST" }); location.reload(); }}
-            style={{ minHeight: 44, padding: "0 16px", borderRadius: 999, border: "2px solid #12352B", background: "transparent", color: "#12352B", fontWeight: 700, cursor: "pointer" }}>
-            {user.name}
-          </button>
-        ) : (
-          <Link href="/masuk" style={{ display: "inline-flex", alignItems: "center", minHeight: 44, padding: "0 16px", borderRadius: 999, border: "2px solid #12352B", color: "#12352B", fontWeight: 700, textDecoration: "none" }}>Masuk</Link>
-        )}
       </nav>
     </header>
   );
